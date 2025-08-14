@@ -20,7 +20,6 @@ export const createTask = async (req, res) => {
     })
   }
 };
-
 export const getAllTasks = async (req, res) => {
   try {
     const taskData = await TaskModel.find().sort({ createdAt: -1 }).lean().exec()
@@ -32,7 +31,7 @@ export const getAllTasks = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: true,
+      status: false,
       message: "Failed to create task",
     })
   }
@@ -43,13 +42,13 @@ export const showTask = async (req, res) => {
     const taskData = await TaskModel.findById(taskid).lean().exec()
 
     res.status(201).json({
-      success: true,
+      status: true,
       taskData,
     })
 
   } catch (error) {
     res.status(500).json({
-      success: true,
+      status: false,
       message: "Failed to create task",
     })
   }
@@ -61,14 +60,14 @@ export const updateTask = async (req, res) => {
     const taskData = await TaskModel.findByIdAndUpdate(taskid, { title, description, status }, { new: true })
 
     res.status(201).json({
-      success: true,
+      status: true,
       message: "Task updated successfully",
       taskData
     })
 
   } catch (error) {
     res.status(500).json({
-      success: true,
+      status: false,
       message: "Failed to update task",
     })
   }
@@ -85,7 +84,7 @@ export const deleteTask = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({
-      success: true,
+      status: false,
       message: "Failed to update task",
     })
   }
