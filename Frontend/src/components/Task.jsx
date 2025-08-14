@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Badge from './Badge'
 import { Link } from 'react-router-dom'
 
-const Task = ({ props }) => {
+const Task = ({ props, onDelete }) => {
   const [badgeColor, setBadgeColor] = useState("blue");
   useEffect(() => {
     if (props.status === "pending") {
@@ -15,6 +15,11 @@ const Task = ({ props }) => {
       setBadgeColor("red");
     }
   }, [props.status])
+
+const handleDelete = async () => {
+  await onDelete(props._id);
+};
+
   return (
     <>
       <div className="border p-3 rounded-md mb-5">
@@ -50,7 +55,7 @@ const Task = ({ props }) => {
               />
             </svg>
           </Link>
-          <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm  text-center inline-flex items-center p-2">
+          <button onClick={handleDelete} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm  text-center inline-flex items-center p-2">
             <svg
               className="w-5 h-5"
               aria-hidden="true"
